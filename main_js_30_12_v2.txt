@@ -1,0 +1,69 @@
+/*************************************************************** 
+INI CUMA BISA DIAPLIKASIKAN DI BROWSER.
+Ke depannya harus buat keyboard supaya di hape juga bisa diakses
+
+yg belum:
+  - judul
+  - tombol submit untuk menjalankan solver nya
+  - hasil solver nya
+  - keyboard
+  - buat responsive supaya di hape juga bagus
+***************************************************************/
+
+// awalan id setiap input
+const IdPrefix = "letter-";
+const ke = (angka) => IdPrefix.concat(angka);
+
+// ambil semua tag input dalam bentuk array
+const inputs = document.getElementsByTagName("input");
+// regex supaya input pada hexagon harus alfabet
+const REGEX_ALFABET = /[a-z]/i;
+
+// saat page baru load, selalu aktifkan center hexagon
+const loadFunction = () => inputs[ke(1)].focus();
+
+const handleInputKeyDown = (event) => {
+  // input user harus huruf, jangan munculkan kalo bukan huruf
+  console.log("now handleInputKeyDown");
+  const keyStroke = event.key.toLowerCase();
+  if (!REGEX_ALFABET.test(keyStroke)) event.preventDefault();
+};
+
+const handleInputKeyUp = (event) => {
+  const keyStroke = event.key.toLowerCase();
+  const activeElement = document.activeElement;
+
+  // kalo user tekan backspace, pindah ke hexagon sebelumnya
+  if (keyStroke === "backspace") {
+    currentID = parseInt(activeElement.id.at(-1));
+    // kalau sekarang di hexagon pertama, pindah ke hexagon terakhir
+    if (currentID === 1) {
+      return inputs[ke(inputs.length)].focus();
+    }
+    return inputs[ke(currentID - 1)].focus();
+  } else {
+    console.log("di handleinputkeyup bukan backspace");
+    // kalo bukan backspace, pindah ke hexagon selanjutnya
+    for (let i = 1; i <= inputs.length; i++) {
+      if (inputs[ke(i)].value === "") {
+        inputs[ke(i)].focus();
+        break;
+      }
+    }
+  }
+};
+
+// ini fungsi utama
+const handleKeyup = () => {
+  const activeElement = document.activeElement;
+  // console.log("handlekeyup", activeElement);
+  // kalo elemen yang aktif bukan hexagon, aktifkan hexagon 1
+  if (activeElement.tagName !== "INPUT") {
+    return inputs[ke(1)].focus();
+  }
+};
+window.onload = loadFunction();
+// window.addEventListener("keyup", handleKeyup);
+console.log(document.activeElement);
+document.activeElement.addEventListener("keydown", handleInputKeyDown);
+document.activeElement.addEventListener("keyup", handleInputKeyUp);

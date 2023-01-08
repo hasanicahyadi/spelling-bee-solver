@@ -1,0 +1,44 @@
+@media screen and (max-width: 700px) {
+  * {
+    font-size: 1.3rem;
+  }
+
+  .input {
+    font-size: 1.875em;
+  }
+  .hex {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+  .hex .left {
+    border-right: 20px solid #e6e6e6;
+    border-top: 34.67px solid transparent;
+    border-bottom: 34.67px solid transparent;
+  }
+
+  .hex .middle {
+    width: 40px;
+    height: 69.34px;
+  }
+
+  .hex .right {
+    border-left: 20px solid #e6e6e6;
+    border-top: 34.67px solid transparent;
+    border-bottom: 34.67px solid transparent;
+  }
+
+  .hex.last {
+    display: flex;
+    margin: 0;
+  }
+
+  .left#center {
+    border-right: 20px solid #f7da21;
+  }
+  .middle#center {
+    background: #f7da21;
+  }
+  .right#center {
+    border-left: 20px solid #f7da21;
+  }
+}

@@ -1,0 +1,8 @@
+kalo lagi tekan tombol (keydown):
+- cek apakah tombol yang ditekan backspace atau tidak.
+- cek apakah tombol yang ditekan adalah alfabet atau tidak.
+
+kalo lepas tombol (keyup):
+- kalo tadi tekan backspace, pindah ke hexagon sebelumnya. kalo sudah di hexagon pertama,
+  pindah ke hexagon terakhir.
+- kalo tadi tekan alfabet, pindah ke hexagon selanjutnya.

@@ -1,0 +1,67 @@
+/*************************************************************** 
+INI CUMA BISA DIAPLIKASIKAN DI BROWSER.
+Ke depannya harus buat keyboard supaya di hape juga bisa diakses
+
+yg belum:
+  - judul
+  - tombol submit untuk menjalankan solver nya
+  - hasil solver nya
+  - keyboard
+  - buat responsive supaya di hape juga bagus
+***************************************************************/
+
+// awalan id setiap input
+const IdPrefix = "letter-";
+// ambil semua tag input dalam bentuk array
+const inputs = document.getElementsByTagName("input");
+// saat page baru load, selalu aktifkan center hexagon
+const loadFunction = () => inputs[IdPrefix.concat(1)].focus();
+
+const handleOnKeyDownInput = (event) => /[a-z]/i.test(event.key);
+const checkEmptyInput = (activeElement, keyStroke) => {
+  if (keyStroke === "backspace") {
+    currentIdNumber = parseInt(activeElement.id.at(-1));
+    // kalau sekarang di input dengan Id awal (letter-1), aktifkan input dengan Id terakhir
+    if (currentIdNumber === 1) {
+      inputs[IdPrefix.concat(inputs.length)].focus();
+      return;
+    }
+    // kalau sekarang bukan input dengan id awal, aktifkan input sebelumnya
+    const activeId = IdPrefix.concat(currentIdNumber - 1);
+    inputs[activeId].focus();
+    return;
+  }
+  // kode ini jalan hanya jika keystroke bukan backspace
+  // aktifkan input kosong dengan id paling kecil
+  for (let i = 1; i <= inputs.length; i++) {
+    const activeId = IdPrefix.concat(i);
+    if (inputs[activeId].value === "") {
+      inputs[activeId].focus();
+      break;
+    }
+  }
+};
+
+const handleKeyUp = (event) => {
+  const keyStroke = event.key.toLowerCase();
+  const activeElement = document.activeElement;
+  // tombol2 ini diabaikan supaya user mudah mengganti hexagon yang aktif
+  const specialKeys = ["backspace"];
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  // kalo di alfabet ga ada atau di special keys ga ada, keluar dari function
+  if (!alphabet.includes(keyStroke)) {
+    if (!specialKeys.includes(keyStroke)) return;
+  }
+
+  // kalau tag yg aktif adalah input hexagon, lakukan function checkEmptyInput
+  if (activeElement.tagName === "INPUT") {
+    console.log("now if input");
+    checkEmptyInput(activeElement, keyStroke);
+  } else {
+    // kalau tag yg aktif bukan hexagon, aktifkan center hexagon
+    inputs[IdPrefix.concat(1)].focus();
+  }
+};
+
+window.onload = loadFunction();
+window.addEventListener("keyup", handleKeyUp);

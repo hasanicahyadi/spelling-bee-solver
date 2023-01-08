@@ -1,0 +1,99 @@
+/* ************************** constant variables ************************** */
+const prefixID = "letter-";
+const REGEX_ALFABET = /[a-z]/i;
+const inputs = document.getElementsByTagName("input");
+const solveButton = document.getElementById("solve-button");
+
+/* ************************** FUNCTIONS ************************** */
+const ke = (angka) => prefixID.concat(angka); // return "letter-1", "letter-2", etc
+const loadFunction = () => inputs[ke(1)].focus();
+
+// cegah user mengisi input yang bukan huruf, backspace atau tab
+const HandleKeyDown = (event) => {
+  const keyStroke = event.key.toLowerCase(); // "a", "b", "backspace", "tab", etc
+  const currentHexagon = parseInt(document.activeElement.id.at(-1)); // 1, 2, 3, etc
+
+  /*
+  PENJELASAN if tab:
+    kalau sekarang bukan di hexagon yang terakhir, pindah ke hexagon selanjutnya.
+    kalau sekarang di hexagon terakhir, cek:
+    - kalau ada hexagon yang belum terisi, pindah ke hexagon pertama
+    - kalau semua hexagon sudah terisi, pindah ke button
+
+  PENJELASAN IF bukan backspace: cegah value input sesuai menjadi keyStroke melalui event.preventDefault()
+  */
+  if (keyStroke.length > 1) {
+    if (keyStroke === "tab") {
+      event.preventDefault();
+      if (currentHexagon !== 7) {
+        return inputs[ke(currentHexagon + 1)].focus();
+      } else {
+        for (let i = 1; i <= inputs.length; i++) {
+          if (inputs[ke(i)].value === "") {
+            return inputs[ke(1)].focus();
+          }
+        }
+        return solveButton.focus();
+      }
+    } else if (keyStroke !== "backspace") {
+      return event.preventDefault();
+    }
+  }
+  if (!REGEX_ALFABET.test(keyStroke)) return event.preventDefault();
+};
+
+const HandleKeyUp = (event) => {
+  const keyStroke = event.key.toLowerCase();
+  const currentHexagon = parseInt(document.activeElement.id.at(-1));
+  // backspace. pindah ke hexagon sebelumnya. kalo sudah di hexagon pertama, pindah ke hexagon terakhir.
+  if (keyStroke === "backspace") {
+    if (currentHexagon !== 1) {
+      inputs[ke(currentHexagon - 1)].focus();
+    } else {
+      inputs[ke(inputs.length)].focus();
+    }
+    // huruf. pindah ke hexagon setelahnya. kalo sudah di hexagon terakhir, pindah ke hexagon pertama.
+  } else if (keyStroke.length === 1 && REGEX_ALFABET.test(keyStroke)) {
+    if (currentHexagon !== inputs.length) {
+      inputs[ke(currentHexagon + 1)].focus();
+    } else {
+      inputs[ke(1)].focus();
+    }
+  }
+};
+
+const ActivateHexagon = (event) => {
+  const currentElement = document.activeElement;
+  const keyStroke = event.key.toLowerCase();
+
+  if (currentElement.tagName !== "INPUT") {
+    if (keyStroke.length === 1 && REGEX_ALFABET.test(keyStroke))
+      inputs[ke(1)].focus();
+  }
+};
+
+const testingFunction = () => {
+  const specificLetters = [];
+  for (let i = 1; i <= inputs.length; i++) {
+    if (inputs[ke(i)].value === "") {
+      return alert("Fill out the hexagons❗");
+    }
+    if (i !== 1) specificLetters.push(inputs[ke(i)].value);
+  }
+  // kalau sampai sini berarti semua hexagon sudah ada isinya
+  const centerLetter = inputs[ke(1)].value;
+  console.log(specificLetters);
+  console.log(centerLetter);
+};
+
+/* ************************** OTHERS ************************** */
+// buat semua input hexagon punya even listener keydown
+for (let i = 1; i <= inputs.length; i++) {
+  inputs[ke(i)].addEventListener("keydown", HandleKeyDown);
+  inputs[ke(i)].addEventListener("keyup", HandleKeyUp);
+}
+
+solveButton.addEventListener("click", testingFunction);
+
+window.onload = loadFunction();
+window.addEventListener("keyup", ActivateHexagon);

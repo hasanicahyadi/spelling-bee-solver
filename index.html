@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <!-- <script src="testing.js" defer></script> -->
+    <title>Spelling Bee Solver</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+  <body>
+    <div class="title-container">
+      <h1 id="page-title">
+        Spelling <span style="color: #f7da21">Bee</span> Solver
+      </h1>
+    </div>
+    <div class="hexagons-main-container">
+      <!-- 1 (center letter) start -->
+      <div class="hex" id="center">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-1" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 1 (center letter) end -->
+      <!-- 2 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-2" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 2 end -->
+      <!-- 3 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-3" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 3 end -->
+      <!-- 4 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-4" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 4 end -->
+      <!-- 5 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-5" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 5 end -->
+      <!-- 6 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-6" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 6 end -->
+      <!-- 7 start -->
+      <div class="hex">
+        <div class="left"></div>
+        <div class="middle">
+          <input id="letter-7" type="text" maxlength="1" size="1" />
+        </div>
+        <div class="right"></div>
+      </div>
+      <!-- 7 end -->
+    </div>
+    <div class="buttons-container">
+      <!-- <button class="btn">Reset</button> -->
+      <!-- <button class="btn" id="solve-button">Solve</button> -->
+      <button class="button-17" id="reset-button">Reset</button>
+      <button class="button-17" id="solve-button">Solve</button>
+    </div>
+    <div class="pangrams-answers-main-container">
+      <h1 id="pangrams-title"></h1>
+      <div class="pangrams-container" id="pangrams"></div>
+      <h1 id="answers-title"></h1>
+      <div class="answers-container" id="answers"></div>
+    </div>
+  </body>
+</html>

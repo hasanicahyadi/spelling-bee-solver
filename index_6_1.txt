@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+    <!-- <script src="testing.js" defer></script> -->
+    <title>Indo Spelling Bee</title>
+  </head>
+  <body>
+    <h1 class="main-title">SPELLING BEE SOLVER</h1>
+    <div class="hexagon">
+      <!-- baris pertama start -->
+      <div class="hex-row">
+        <div class="hex end">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-2" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="hex even">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-3" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="hex end">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-4" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <!-- baris pertama end -->
+
+      <!-- baris kedua start-->
+      <div class="hex-row">
+        <div class="hex end">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-5" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+        <div class="hex even">
+          <div class="left" id="center"></div>
+          <div class="middle" id="center">
+            <input id="letter-1" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right" id="center"></div>
+        </div>
+        <div class="hex end">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-7" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <!-- baris kedua end -->
+
+      <!-- baris ketiga start -->
+      <div class="hex-row">
+        <div class="hex last">
+          <div class="left"></div>
+          <div class="middle">
+            <input id="letter-6" type="text" maxlength="1" size="1" />
+          </div>
+          <div class="right"></div>
+        </div>
+      </div>
+      <!-- baris ketiga end -->
+    </div>
+    <button class="btn" id="solve-button">SOLVE!</button>
+    <h2 class="title" id="pangrams-title"></h2>
+    <p
+      id="pangrams"
+      style="word-break: break-all; padding: 1rem; font-size: 0.8rem"
+    ></p>
+
+    <h2 class="title" id="answers-title"></h2>
+    <p
+      id="answers"
+      style="word-break: break-all; padding: 1rem; font-size: 0.8rem"
+    ></p>
+  </body>
+</html>

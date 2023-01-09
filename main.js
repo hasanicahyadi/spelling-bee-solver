@@ -181,7 +181,7 @@ const SolveSpellingBee = async () => {
   if (!specificLetters) return;
 
   // kalau sampai sini berarti hexagon sudah lengkap. ambil seluruh kata
-  const response = await fetch("./english-words.txt");
+  const response = await fetch("https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt");
   const data = await response.json();
 
   // selesaikan.

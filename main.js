@@ -91,6 +91,7 @@ const GetLetters = () => {
 };
 
 const SpellingBeeSolver = (wordList, centerLetter, specificLetters) => {
+  console.log(centerLetter, specificLetters);
   const wordsWithCenterLetter = [];
   const pangrams = [];
   const finalWordList = [];
@@ -182,9 +183,9 @@ const SolveSpellingBee = async () => {
 
   // kalau sampai sini berarti hexagon sudah lengkap. ambil seluruh kata
   const response = await fetch("https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt");
-  console.log(response);
+  // console.log(response);
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
 
   // selesaikan.
   SpellingBeeSolver(data, centerLetter, specificLetters);

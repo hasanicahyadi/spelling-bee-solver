@@ -82,12 +82,17 @@ const GetLetters = () => {
       alert("Fill out the hexagons❗");
       return false;
     }
-    if (inputValue.length === 1 && REGEX_ALFABET.test(inputValue)) {
-      if (i == 1) continue;
-      specificLetters.push(inputValue.toLowerCase());
+    if (inputValue.length !== 1) {
+      alert("Each hexagon can only contain one letter❗");
+      return false;
     }
+    if (!REGEX_ALFABET.test(inputValue)) {
+      alert("Each hexagon can only contain letters❗");
+      return false;
+    }
+    if (i == 1) continue;
+    specificLetters.push(inputValue.toLowerCase());
   }
-  // kalau sampai sini berarti semua hexagon sudah ada isinya
   const centerLetter = inputs[ke(1)].value.toLowerCase();
 
   return { specificLetters: specificLetters, centerLetter: centerLetter };
@@ -188,6 +193,8 @@ const SolveSpellingBee = async () => {
     "https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt"
   );
   const data = await response.json();
+  console.log(centerLetter);
+  console.log(specificLetters);
   // selesaikan.
   SpellingBeeSolver(data, centerLetter, specificLetters);
 };

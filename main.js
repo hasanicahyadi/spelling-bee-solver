@@ -184,6 +184,7 @@ const SolveSpellingBee = async () => {
   const response = await fetch("https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt");
   console.log(response);
   const data = await response.json();
+  console.log(data);
 
   // selesaikan.
   SpellingBeeSolver(data, centerLetter, specificLetters);

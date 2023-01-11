@@ -10,6 +10,7 @@ const ke = (angka) => prefixID.concat(angka); // return "letter-1", "letter-2", 
 const loadFunction = () => inputs[ke(1)].focus();
 
 const HandleKeyDown = (event) => {
+  console.log("handlekeydown");
   // cegah user mengisi input yang bukan huruf, backspace atau tab
   const keyStroke = event.key.toLowerCase(); // "a", "b", "backspace", "tab", etc
   const currentHexagon = parseInt(document.activeElement.id.at(-1)); // 1, 2, 3, etc
@@ -44,6 +45,13 @@ const HandleKeyDown = (event) => {
 };
 
 const HandleKeyUp = (event) => {
+  console.log("handlekeyup");
+  const currentElement = document.activeElement;
+  const maxValueLength = 1;
+  if (currentElement.value.length > maxValueLength) {
+    currentElement.value = currentElement.value.substring(0, maxValueLength);
+  }
+
   const keyStroke = event.key.toLowerCase();
   const currentHexagon = parseInt(document.activeElement.id.at(-1));
   // backspace. pindah ke hexagon sebelumnya. kalo sudah di hexagon pertama, pindah ke hexagon terakhir.
@@ -53,45 +61,39 @@ const HandleKeyUp = (event) => {
     } else {
       inputs[ke(inputs.length)].focus();
     }
-    // huruf. pindah ke hexagon setelahnya. kalo sudah di hexagon terakhir, pindah ke hexagon pertama.
+    // huruf. pindah ke hexagon setelahnya. kalo sudah di hexagon terakhir, pindah ke solve button.
   } else if (keyStroke.length === 1 && REGEX_ALFABET.test(keyStroke)) {
     if (currentHexagon !== inputs.length) {
       inputs[ke(currentHexagon + 1)].focus();
     } else {
-      inputs[ke(1)].focus();
+      solveButton.focus();
     }
   }
 };
-const ActivateHexagon = (event) => {
-  const currentElement = document.activeElement;
-  const keyStroke = event.key.toLowerCase();
 
-  if (currentElement.tagName !== "INPUT") {
-    if (keyStroke.length === 1 && REGEX_ALFABET.test(keyStroke))
-      inputs[ke(1)].focus();
-  }
-};
-
-resetPage = () => (window.location.href = window.location.href);
+const resetPage = () => (window.location.href = window.location.href);
 
 /* ************************** SOLVER FUNCTIONS START ************************** */
 const GetLetters = () => {
   const specificLetters = [];
   for (let i = 1; i <= inputs.length; i++) {
-    if (inputs[ke(i)].value === "") {
+    inputValue = inputs[ke(i)].value;
+    if (inputValue === "") {
       alert("Fill out the hexagons❗");
       return false;
     }
-    if (i !== 1) specificLetters.push(inputs[ke(i)].value);
+    if (inputValue.length === 1 && REGEX_ALFABET.test(inputValue)) {
+      if (i == 1) continue;
+      specificLetters.push(inputValue.toLowerCase());
+    }
   }
   // kalau sampai sini berarti semua hexagon sudah ada isinya
-  const centerLetter = inputs[ke(1)].value;
+  const centerLetter = inputs[ke(1)].value.toLowerCase();
 
   return { specificLetters: specificLetters, centerLetter: centerLetter };
 };
 
 const SpellingBeeSolver = (wordList, centerLetter, specificLetters) => {
-  console.log(centerLetter, specificLetters);
   const wordsWithCenterLetter = [];
   const pangrams = [];
   const finalWordList = [];
@@ -157,8 +159,8 @@ const SpellingBeeSolver = (wordList, centerLetter, specificLetters) => {
   });
   // urutkan kata dari yang terpanjang
   finalWordList.sort((a, b) => b.length - a.length);
-  console.table(finalWordList);
-  console.table(pangrams);
+  console.log(finalWordList);
+  console.log(pangrams);
 
   document.getElementById("pangrams-title").textContent = "Pangrams:";
   pangrams.forEach((pangram) => {
@@ -182,11 +184,10 @@ const SolveSpellingBee = async () => {
   if (!specificLetters) return;
 
   // kalau sampai sini berarti hexagon sudah lengkap. ambil seluruh kata
-  const response = await fetch("https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt");
-  // console.log(response);
+  const response = await fetch(
+    "https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt"
+  );
   const data = await response.json();
-  // console.log(data);
-
   // selesaikan.
   SpellingBeeSolver(data, centerLetter, specificLetters);
 };
@@ -204,4 +205,3 @@ solveButton.addEventListener("click", SolveSpellingBee);
 resetButton.addEventListener("click", resetPage);
 
 window.onload = loadFunction();
-window.addEventListener("keyup", ActivateHexagon);

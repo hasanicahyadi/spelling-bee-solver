@@ -10,7 +10,6 @@ const ke = (angka) => prefixID.concat(angka); // return "letter-1", "letter-2", 
 const loadFunction = () => inputs[ke(1)].focus();
 
 const HandleKeyDown = (event) => {
-  console.log("handlekeydown");
   // cegah user mengisi input yang bukan huruf, backspace atau tab
   const keyStroke = event.key.toLowerCase(); // "a", "b", "backspace", "tab", etc
   const currentHexagon = parseInt(document.activeElement.id.at(-1)); // 1, 2, 3, etc
@@ -45,7 +44,6 @@ const HandleKeyDown = (event) => {
 };
 
 const HandleKeyUp = (event) => {
-  console.log("handlekeyup");
   const currentElement = document.activeElement;
   const maxValueLength = 1;
   if (currentElement.value.length > maxValueLength) {
@@ -164,8 +162,6 @@ const SpellingBeeSolver = (wordList, centerLetter, specificLetters) => {
   });
   // urutkan kata dari yang terpanjang
   finalWordList.sort((a, b) => b.length - a.length);
-  console.log(finalWordList);
-  console.log(pangrams);
 
   document.getElementById("pangrams-title").textContent = "Pangrams:";
   pangrams.forEach((pangram) => {
@@ -193,8 +189,7 @@ const SolveSpellingBee = async () => {
     "https://hasanicahyadi.github.io/spelling-bee-solver/english-words.txt"
   );
   const data = await response.json();
-  console.log(centerLetter);
-  console.log(specificLetters);
+
   // selesaikan.
   SpellingBeeSolver(data, centerLetter, specificLetters);
 };
